@@ -45,8 +45,8 @@ export async function startHappyServer(client: ApiSessionClient) {
         title: 'Change Chat Title',
         inputSchema: {
             title: z.string().describe('The new title for the chat session'),
-        },
-    }, async (args) => {
+        } as any,
+    }, async (args: any) => {
         const response = await handler(args.title);
         logger.debug('[happyMCP] Response:', response);
         
@@ -56,7 +56,7 @@ export async function startHappyServer(client: ApiSessionClient) {
                     {
                         type: 'text',
                         text: `Successfully changed chat title to: "${args.title}"`,
-                    },
+                    } as any,
                 ],
                 isError: false,
             };
@@ -66,7 +66,7 @@ export async function startHappyServer(client: ApiSessionClient) {
                     {
                         type: 'text',
                         text: `Failed to change chat title: ${response.error || 'Unknown error'}`,
-                    },
+                    } as any,
                 ],
                 isError: true,
             };

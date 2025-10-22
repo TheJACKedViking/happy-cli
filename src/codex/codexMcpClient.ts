@@ -63,8 +63,8 @@ export class CodexMcpClient {
             params: z.object({
                 msg: z.any()
             })
-        }).passthrough(), (data) => {
-            const msg = data.params.msg;
+        }).passthrough() as any, (data) => {
+            const msg = (data as any).params.msg;
             this.updateIdentifiersFromEvent(msg);
             this.handler?.(msg);
         });

@@ -48,7 +48,7 @@ export function startDaemonControlServer({
         }
       }
     }, async (request) => {
-      const { sessionId, metadata } = request.body;
+      const { sessionId, metadata } = request.body as { sessionId: string; metadata: any };
 
       logger.debug(`[CONTROL SERVER] Session started: ${sessionId}`);
       onHappySessionWebhook(sessionId, metadata);
@@ -96,7 +96,7 @@ export function startDaemonControlServer({
         }
       }
     }, async (request) => {
-      const { sessionId } = request.body;
+      const { sessionId } = request.body as { sessionId: string };
 
       logger.debug(`[CONTROL SERVER] Stop session request: ${sessionId}`);
       const success = stopSession(sessionId);
@@ -129,7 +129,7 @@ export function startDaemonControlServer({
         }
       }
     }, async (request, reply) => {
-      const { directory, sessionId } = request.body;
+      const { directory, sessionId } = request.body as { directory: string; sessionId?: string };
 
       logger.debug(`[CONTROL SERVER] Spawn session request: dir=${directory}, sessionId=${sessionId || 'new'}`);
       const result = await spawnSession({ directory, sessionId });
